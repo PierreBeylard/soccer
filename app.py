@@ -16,9 +16,6 @@ import plotly.io as pio
 
 from whitenoise import WhiteNoise
 
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/')
-
-
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 server = app.server
