@@ -17,6 +17,8 @@ import plotly.io as pio
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+server = app.server
+
 # génération des df, et des figures
 
 df_total_goal_by_rainfall = db.get_total_goals_by_rainfall() #1
