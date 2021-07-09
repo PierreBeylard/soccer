@@ -22,6 +22,7 @@ server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/')
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 server = app.server
+server.wsgi_app = WhiteNoise(server.wsgi_app, root="static/") #Pour pouvoir accéder au fichier statics/assets/style.css sinon ça marche pas
 
 # génération des df, et des figures
 
