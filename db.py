@@ -41,7 +41,15 @@ def get_total_teams_goals_by_rainfall():
 
 def get_mean_teams_goals_by_rainfall():
     con = sqlite3.connect('data/football_orm.sqlite')
-    request = "select COUNT(goals.id) as mean_goals, rainfall, teams.name  FROM goals JOIN matches ON goals.match_id = matches.id JOIN matches_teams ON matches.id = matches_teams.matchs_id JOIN teams ON matches_teams.team_id = teams.id GROUP BY matches.rainfall, matches.id;"
+    request= """SELECT 
+    matches.id AS match_id,
+    matches_teams.team_goals AS Total_team_goals,
+    matches.rainfall, teams.name 
+    FROM goals
+    JOIN matches ON goals.match_id = matches.id 
+    JOIN matches_teams ON matches_teams.matchs_id = matches.id
+    JOIN teams ON teams.id = matches_teams.team_id 
+    GROUP BY matches.id ,teams.id"""
     df = pd.read_sql(request, con)
     df = df.groupby(['name','rainfall'], as_index=False).mean()
     return df
@@ -57,10 +65,35 @@ def get_total_teams_goals_by_temperature():
 
 def get_mean_teams_goals_by_temperature():
     con = sqlite3.connect('data/football_orm.sqlite')
-    request = "select COUNT(goals.id) as mean_goals, temperature, teams.name  FROM goals JOIN matches ON goals.match_id = matches.id JOIN matches_teams ON matches.id = matches_teams.matchs_id JOIN teams ON matches_teams.team_id = teams.id GROUP BY matches.temperature, matches.id;"
+    request= """SELECT 
+    matches.id AS match_id,
+    matches_teams.team_goals AS Total_team_goals,
+    matches.temperature, teams.name 
+    FROM goals
+    JOIN matches ON goals.match_id = matches.id 
+    JOIN matches_teams ON matches_teams.matchs_id = matches.id
+    JOIN teams ON teams.id = matches_teams.team_id 
+    GROUP BY matches.id ,teams.id"""    
     df = pd.read_sql(request, con)
     df = df.groupby(['name','temperature'], as_index=False).mean()
     return df
+
+#Graph 5
+
+def get_match_note_by_temperature():
+    con = sqlite3.connect('data/football_orm.sqlite')
+    request = "SELECT * FROM matches ;"
+    df = pd.read_sql(request, con)
+    df= df.groupby(['temperature'], as_index=False)['match_note'].mean()
+    return df
+
+def get_match_note_by_rainfall():
+    con = sqlite3.connect('data/football_orm.sqlite')
+    request = "SELECT * FROM matches ;"
+    df = pd.read_sql(request, con)
+    df= df.groupby(['rainfall'], as_index=False)['match_note'].mean()
+    return df
+
 
 
 

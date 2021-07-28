@@ -191,7 +191,7 @@ def update_graph(value):
 )
 def update_graph(value):
     if value == "Mean":
-        fig = px.scatter(df_mean_teams_goal_by_rainfall, x="rainfall", y="mean_goals", color='name',template="plotly_dark")
+        fig = px.scatter(df_mean_teams_goal_by_rainfall, x="rainfall", y="Total_team_goals", color='name',template="plotly_dark")
 
     else:
         fig = px.scatter(df_total_teams_goal_by_rainfall, x="rainfall", y="total_goals", color='name',template="plotly_dark")
@@ -206,7 +206,7 @@ def update_graph(value):
 )
 def update_graph(value):
     if value == "Mean":
-        fig = px.scatter(df_mean_teams_goal_by_temperature, x="temperature", y="mean_goals", color= 'name',template="plotly_dark")
+        fig = px.scatter(df_mean_teams_goal_by_temperature, x="temperature", y="Total_team_goals", color= 'name',template="plotly_dark")
 
     else:
         fig = px.scatter(df_total_teams_goal_by_temperature, x="temperature", y="total_goals", color= 'name',template="plotly_dark")
