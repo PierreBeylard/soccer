@@ -36,6 +36,8 @@ df_total_teams_goal_by_temperature = db.get_total_teams_goals_by_temperature()#4
 df_mean_teams_goal_by_rainfall = db.get_mean_teams_goals_by_rainfall()#3
 df_mean_teams_goal_by_temperature = db.get_mean_teams_goals_by_temperature()#4
 
+df_score_by_rainfall = db.get_match_note_by_rainfall()
+df_score_by_temperature =  db.get_match_note_by_temperature()
 
 
 
@@ -47,6 +49,7 @@ fig_total_teams_goal_by_rainfall = px.scatter(df_total_teams_goal_by_rainfall, x
 
 fig_total_teams_goal_by_temperature = px.scatter(df_total_teams_goal_by_temperature, x="temperature", y="total_goals", color="name",template="plotly_dark"  )#4
 
+fig_score_by_rainfall = px.bar(df_score_by_rainfall, x="rainfall", y="match_note",template="plotly_dark") 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -142,7 +145,34 @@ Global Viz''',style={'color':'#cfcbce',  'margin': '50px 0px 15px 815px '}),
             ),       
 
         ])
-    ])
+    ]),
+    ),
+
+    
+    html.H2(children='''Match_score Viz''',style={'color':'#cfcbce',  'margin': '50px 0px 15px 815px '}),
+
+
+    html.Div(
+
+
+     dbc.Col([
+
+         dcc.Dropdown(
+                id='dropdown_score',
+                options=[
+                    {'label': 'Rainfall', 'value': 'Rainfall'},
+                    {'label': 'Temperature', 'value': 'Temperature'},                   
+                    ],
+                value = 'Rainfall',
+                ),
+
+            dcc.Graph(
+            id='score',
+            figure=fig_score_by_rainfall 
+            ),    #3
+
+
+     ]),
     )
 
 ],style={"background-color":"#1d1c23"})
@@ -214,7 +244,20 @@ def update_graph(value):
     return fig
 
 
+# Graph 5 / Call Back 5
 
+@app.callback(
+    Output('score', 'figure'),
+    Input('dropdown_score', 'value'),
+)
+def update_graph(value):
+    if value == "Rainfall":
+        fig = px.bar(df_score_by_rainfall, x="rainfall", y="match_note",template="plotly_dark")
+
+    else:
+        fig = px.bar(df_score_by_temperature, x="temperature", y="match_note",template="plotly_dark")
+
+    return fig
 
 if __name__ == '__main__':
     app.run_server(debug=True)
