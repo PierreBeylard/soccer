@@ -57,7 +57,7 @@ fig_score_by_rainfall = px.bar(df_score_by_rainfall, x="rainfall", y="match_note
 #Création du layout
 
 app.layout = html.Div(children=[
-    html.H1(children='Temperature and rainfall influence over football matches',style = {'color':'#ebeaed',  'margin': '0px 0px 0px 300px '}),
+    html.H1(children='Temperature and rainfall influence over football matches',style = {'color':'#ebeaed',  'margin': '0px 0px 0px 330px '}),
 
     html.H2(children='''
 Global Viz''',style={'color':'#cfcbce',  'margin': '50px 0px 15px 815px '}),
